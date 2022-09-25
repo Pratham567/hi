@@ -175,7 +175,7 @@ function printResultAndAppendinputCommandStrip(node, printSpeed){
 
 
 setTimeout(function() {
-  printResultAndAppendinputCommandStrip(getStartedNode, 140);
+  printResultAndAppendinputCommandStrip(getStartedNode, 50);
 }, 2000);
 
 
