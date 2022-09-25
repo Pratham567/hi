@@ -23,9 +23,10 @@
 // Explore keeping the input field empty, just the cursor for newSection.
 // In projects, we may want the user to give input either project name or serial number. For this, we may have to initialize some variable to identify that we are in a specific page (eg: projects, etc)
 // implement the function to take care of typos and other errors, if any.
+// Add a hyperlink to urls, and see how they can be done realtime.
 
-// All supported commands
-// projects, bio, github, clear, new, contact, email
+// Commands, yet to be added
+// projects, bio, github, clear, new, contact, email, intro, man, github, clear, home
 // Fixed output command
 const fixedCommand = ['help', 'linkedin', 'clear', 'resume'];
 // Typed command
@@ -33,6 +34,22 @@ const iteratableResultCommand = ['bio', 'man', 'projects', 'home', 'sama'];
 // Special cases
 // projects, sama, whoami, cd
 
+// command outputs
+const bioResult = "Pratham a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
+              He have experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
+              He have also built highly distributed pipelines for efficient testing and deployments. \
+              He is fascinated by Cloud and Data. Cyber Security takes up most of his free time. If you are into security, you'll vibe :p";
+const resumeResult = "Thanks for the query. Get my resume here: https://bit.ly/ResumePratham22";
+const helpResult = `The folowing commands are valid:
+                    help, resume, bio, linkedin`;
+const contactResult = "Pratham reachable at: go4pratham0897@gmail.com. LinkedIn: https://linkedin.com/in/pratham567 ";
+
+// cub commands based on results
+const debugCmds = ['h'];
+const resumeCmds = ['resume', 'biodata', 'cv'];
+const bioCmds = ['bio', 'about', 'biography', 'info'];
+const contactCmds = ['linkedin', 'contact', 'email'];
+const specialCmds = ['sama'];
 
 // Create a new element and push the chars one at a time and finally add a new line
 const cursor = document.createElement('span');
@@ -136,24 +153,9 @@ function printResultCharByChar(node, charPrintWaitTime=140) {
   console.log("Debug: ending printResultCharByChar");
 }
 
-/**
- * synchronous wait in ms
- * @param {int} ms 
- */
-function wait(ms) {
-  var start = Date.now(),
-      now = start;
-  while (now - start < ms) {
-    now = Date.now();
-  }
-}
-
 // Main Call starts here;
 setBackgroundColor();
 const getStartedNode = getTypeableNodeContent('getStartedNodeId');
-
-console.log('Node here: ');
-console.log(getStartedNode);
 
 function appendInputStrip(node, delay=1000){
   setTimeout(() => {
@@ -216,13 +218,8 @@ function executeCommand(cmd='help'){
   newSection.style.display = 'block';
   // clear all child nodes of newSection, it will be taken care later;
   clearAllChildNodes(newSection);
-
-  let helpInfo = ` The following commands are valid:
-    help, man, resume, projects, bio, linkedin, github, clear, new
-    `;
   
-  resultText = getResultText(cmd);
-  
+  let resultText = getResultText(cmd);
 
   updateExecutedCommandPara(cmd);
   displayResultOfCommand(resultText, cmd);
@@ -236,39 +233,37 @@ function getLastTextChildNode(parentNode){
 function getResultText(cmd){
   
   let resultText = '';
-
-  helpOutput = `The folowing commands are valid:
-  help, man, resume, projects, bio, linkedin, github, clear, new`;
   
-  if(cmd == 'sama'){
+  if(specialCmds.includes(cmd)){
     resultText = 'This is a special command. Coming soon.....'
   }
-  else if (cmd == 'h'){
+  else if (debugCmds.includes(cmd)){
     resultText = "this is the text Content of the resultPara";
   }
-  // else if (){
-  //   resultText = helpInfo;
-  // }
   else if (cmd == 'help'){
-    resultText = helpOutput;
+    resultText = helpResult;
+                    }
+  else if (bioCmds.includes(cmd)){
+    resultText = bioResult;
+  }
+  else if (contactCmds.includes(cmd)){
+    resultText = contactResult;
+  }
+  else if (resumeCmds.includes(cmd)){
+    resultText = resumeResult;
   }
   else {
     // default result, output of help
-    resultText = `Oops! unrecognised command ` + helpOutput;
+    resultText = `Oops! unrecognised command ` + helpResult;
   }
-
   return resultText;
 
 }
 
 function updateExecutedCommandPara(cmd){
-  // console.log("Debug: updateExecutedCommandPara")
-  
   let rcmd = "Executed Command: " + cmd;;
   let lastEl = getLastTextChildNode(executedCommandPara);
   lastEl.textContent = rcmd;
-
-  // console.log("Debug: leaving: updateExecutedCommandPara")
 
 }
 
@@ -292,6 +287,14 @@ function displayResultOfCommand(resultText, cmd){
   resultPara.style.display = 'block';
 
   let lastElemenrOfResultPara = getLastTextChildNode(resultPara);
+  lastElemenrOfResultPara._saved = resultText.replace(/ {2,}/g, ' ').trim();
+  lastElemenrOfResultPara.textContent = '';
+  // print result & highlight. Also, append/focus the inputCommandStrip
+  printResultAndAppendinputCommandStrip(lastElemenrOfResultPara, 50);
+  
+  
+  // The following code has a bug, run command sama and then help
+  /* 
   // check for the command, if it needs to be iterated or not.
   if( cmd == 'help'){
     // Append/focus the inputCommandStrip
@@ -304,6 +307,7 @@ function displayResultOfCommand(resultText, cmd){
     // print result & highlight. Also, append/focus the inputCommandStrip
     printResultAndAppendinputCommandStrip(lastElemenrOfResultPara, 50);
   } 
+  */
 
 }
 
