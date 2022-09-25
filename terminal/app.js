@@ -1,8 +1,5 @@
 // TODO:
-// Create function for iterate and print, use this function everywhere. Maybe add a sleep timeout for it as well, before typing.
 // Open Resume in a new page
-// Biography should come in the same page and typed just like the typeableContent
-// Input Command should always be present
 // Terminal size should increase along with the text
 // Support the mobile version
 // Add some intelligence to support minor mistakes from the users
@@ -24,9 +21,10 @@
 // In projects, we may want the user to give input either project name or serial number. For this, we may have to initialize some variable to identify that we are in a specific page (eg: projects, etc)
 // implement the function to take care of typos and other errors, if any.
 // Add a hyperlink to urls, and see how they can be done realtime.
+// make type speed variable as per command
 
 // Commands, yet to be added
-// projects, bio, github, clear, new, contact, email, intro, man, github, clear, home
+// projects, github, clear, new, man, home
 // Fixed output command
 const fixedCommand = ['help', 'linkedin', 'clear', 'resume'];
 // Typed command
@@ -35,20 +33,22 @@ const iteratableResultCommand = ['bio', 'man', 'projects', 'home', 'sama'];
 // projects, sama, whoami, cd
 
 // command outputs
-const bioResult = "Pratham a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
+const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
               He have experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
               He have also built highly distributed pipelines for efficient testing and deployments. \
               He is fascinated by Cloud and Data. Cyber Security takes up most of his free time. If you are into security, you'll vibe :p";
 const resumeResult = "Thanks for the query. Get my resume here: https://bit.ly/ResumePratham22";
 const helpResult = `The folowing commands are valid:
                     help, resume, bio, linkedin`;
-const contactResult = "Pratham reachable at: go4pratham0897@gmail.com. LinkedIn: https://linkedin.com/in/pratham567 ";
+const contactResult = "Pratham is reachable at: go4pratham0897@gmail.com. You maybe be looking for the following commands: linkedin";
+const linkedInResult = "Connect with Pratham on LinkedIn here: https://linkedin.com/in/pratham567";
 
 // cub commands based on results
 const debugCmds = ['h'];
 const resumeCmds = ['resume', 'biodata', 'cv'];
-const bioCmds = ['bio', 'about', 'biography', 'info'];
-const contactCmds = ['linkedin', 'contact', 'email'];
+const bioCmds = ['bio', 'about', 'biography', 'info', 'intro'];
+const contactCmds = ['contact', 'email'];
+const linkedInCmd = ['linkedin'];
 const specialCmds = ['sama'];
 
 // Create a new element and push the chars one at a time and finally add a new line
@@ -252,6 +252,9 @@ function getResultText(cmd){
   else if (resumeCmds.includes(cmd)){
     resultText = resumeResult;
   }
+  else if (linkedInCmd.includes(cmd)){
+    resultText = linkedInResult;
+  }
   else {
     // default result, output of help
     resultText = `Oops! unrecognised command ` + helpResult;
@@ -290,7 +293,7 @@ function displayResultOfCommand(resultText, cmd){
   lastElemenrOfResultPara._saved = resultText.replace(/ {2,}/g, ' ').trim();
   lastElemenrOfResultPara.textContent = '';
   // print result & highlight. Also, append/focus the inputCommandStrip
-  printResultAndAppendinputCommandStrip(lastElemenrOfResultPara, 50);
+  printResultAndAppendinputCommandStrip(lastElemenrOfResultPara, 25);
   
   
   // The following code has a bug, run command sama and then help
