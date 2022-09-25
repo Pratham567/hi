@@ -34,8 +34,8 @@ const iteratableResultCommand = ['bio', 'man', 'projects', 'home', 'sama'];
 
 // command outputs
 const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
-              He have experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
-              He have also built highly distributed pipelines for efficient testing and deployments. \
+              He has experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
+              He has also built highly distributed pipelines for efficient testing and deployments. \
               He is fascinated by Cloud and Data. Cyber Security takes up most of his free time. If you are into security, you'll vibe :p";
 const resumeResult = "Thanks for the query. Get my resume here: https://bit.ly/ResumePratham22";
 const helpResult = `The folowing commands are valid:
@@ -49,7 +49,7 @@ const resumeCmds = ['resume', 'biodata', 'cv'];
 const bioCmds = ['bio', 'about', 'biography', 'info', 'intro'];
 const contactCmds = ['contact', 'email'];
 const linkedInCmd = ['linkedin'];
-const specialCmds = ['sama'];
+const specialCmds = ['sama', 'projects'];
 
 // Create a new element and push the chars one at a time and finally add a new line
 const cursor = document.createElement('span');
