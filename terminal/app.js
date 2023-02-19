@@ -6,27 +6,30 @@
 // TODO:
 // Open Resume in a new page
 // Terminal size should increase along with the text
-// Support the mobile version
 // Add some intelligence to support minor mistakes from the users
 // Maybe add a command say something to just say something random
 // Command: whoami, work experience, hobby, area of interests (interest), sports, achievements
-// input Command should have the website (master) ⇒ at the start
 // We may want to have blinking pointer in the input as well when it is in focus
 // Maybe add the introductory resultPara also comes as part of the typing style
 // Mayve we need to iterate the content of `codeInputField` as well
-// when ENTER is pressed, we may want to have a line at the stop where we can show the command that was executed
 // Instead of Type here, we can just use a cursor blink
 // Support Mobile version as well
-// const typableContent = 'To get started; type help and press Enter (Or click RUN)';
+// const typableContent = 'To get started; type help and press Enter (Or click RUN)'; -> add a button
 // Make responses more interesteing, Eg: Oops!! invalid command, here's what you can ask for:
 // Cursor is not pointing properly when printing command
-// Parameterise the time interval for printing.
 // If the pragraph is too long, pretty print it, in the sense the print width should be fixed for each line
 // Explore keeping the input field empty, just the cursor for newSection.
 // In projects, we may want the user to give input either project name or serial number. For this, we may have to initialize some variable to identify that we are in a specific page (eg: projects, etc)
 // implement the function to take care of typos and other errors, if any.
 // Add a hyperlink to urls, and see how they can be done realtime.
-// make type speed variable as per command
+// Extend the commandStrip to the end of the terminal
+
+
+// CONSTANTS
+const appVersionString = "1.1.9";
+const lastUpdated = "February 20th, 2023";
+const RESUME_URL = "https://bit.ly/ResumePratham22";
+const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
 
 // Commands, yet to be added
 // projects, github, clear, new, man, home
@@ -37,10 +40,15 @@ const iteratableResultCommand = ['bio', 'man', 'projects', 'home', 'sama'];
 // Special cases
 // projects, sama, whoami, cd
 
-const appVersionString = "1.1.8";
-const lastUpdated = "February 20th, 2023";
-const RESUME_URL = "https://bit.ly/ResumePratham22";
-const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
+// cub commands based on results
+const debugCmds = ['h'];
+const resumeCmds = ['resume', 'biodata', 'cv'];
+const bioCmds = ['bio', 'about', 'biography', 'info', 'intro'];
+const contactCmds = ['contact', 'email'];
+const linkedInCmd = ['linkedin'];
+const specialCmds = ['sama', 'projects'];
+const randomCmds = ['random'];
+
 // command outputs
 const helpResult = `The folowing commands are valid:
                     help, resume, bio, linkedin, random`;
@@ -61,7 +69,7 @@ const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
                       "Pratham has won medals in body-building competitions.",
                       "Pratham like to eat neew things, but he's vegetarian.",
                       "Pratham's favourite fruit is apple.",
-                      "Please try again.",
+                      "Please try again....",
                       "Pratham believes in giving back to the society, hence he has been part of various social initiatives in college.",
                       "Pratham has volunteered with Robinhood Army.",
                       "Pratham has published a research paper on biofuel production from wheat straw in pre-final year of his bachelor's.",
@@ -91,22 +99,13 @@ const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
                       "The first book Pratham purchased for his interest was: Computer Networks: A top down approach.",
                       "Out of interest, Pratham has read over 5 technical books and counting...",
                       "Pratham prefer Microservices over Monoliths.",
-                      "Pratham prefers backed over frontend",
-                      "Pratham can build CICD pipelines from scratch",
-                      "Pratham can develop highly scalable, high throughput applications",
-                      "Pratham can build asynchronous servers",
+                      "Pratham prefers backed over frontend.",
+                      "Pratham can build CICD pipelines from scratch.",
+                      "Pratham can develop highly scalable, high throughput applications.",
+                      "Pratham can build asynchronous servers.",
                       "Pratham can design and develop a production grade product, including microservices, libraries, testing pipelines, deployment, etc.",
-                      "Pratham is not active on Social Media"
+                      "Pratham is not active on Social Media."
                     ];
-
-// cub commands based on results
-const debugCmds = ['h'];
-const resumeCmds = ['resume', 'biodata', 'cv'];
-const bioCmds = ['bio', 'about', 'biography', 'info', 'intro'];
-const contactCmds = ['contact', 'email'];
-const linkedInCmd = ['linkedin'];
-const specialCmds = ['sama', 'projects'];
-const randomCmds = ['random'];
 
 // Create a new element and push the chars one at a time and finally add a new line
 const cursor = document.createElement('span');
