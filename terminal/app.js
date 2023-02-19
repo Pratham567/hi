@@ -1,3 +1,8 @@
+// Contribution guidelines
+// Update the app version, update the lastUpdated
+// If adding a new command, make sure to add it in the help command description as well.
+
+
 // TODO:
 // Open Resume in a new page
 // Terminal size should increase along with the text
@@ -32,16 +37,52 @@ const iteratableResultCommand = ['bio', 'man', 'projects', 'home', 'sama'];
 // Special cases
 // projects, sama, whoami, cd
 
+const appVersionString = "1.1.6";
+const lastUpdated = "February 20th, 2023";
 // command outputs
+const helpResult = `The folowing commands are valid:
+                    help, resume, bio, linkedin, random`;
 const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
               He has experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
               He has also built highly distributed pipelines for efficient testing and deployments. \
               He is fascinated by Cloud and Data. Cyber Security takes up most of his free time. If you are into security, you'll vibe :p";
 const resumeResult = "Thanks for the query. Get my resume here: https://bit.ly/ResumePratham22";
-const helpResult = `The folowing commands are valid:
-                    help, resume, bio, linkedin`;
 const contactResult = "Pratham is reachable at: go4pratham0897@gmail.com. You maybe be looking for the following commands: linkedin";
 const linkedInResult = "Connect with Pratham on LinkedIn here: https://linkedin.com/in/pratham567";
+const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
+                      "Pratham has won the President's Gold Medal Award for his all round performance and his contributions to the department/college/society..",
+                      "Pratham has travelled to 3 different countries.",
+                      "Pratham has been very active in sports and have won multiple medls during college and holds records like maximum push-ups, maximum pull-ups in a go.",
+                      "Pratham has learnt development by himself.",
+                      "Pratham has a deep interest in cybersecurity, specially in reverse engineering.",
+                      "Pratham files taxes by himself.",
+                      "Pratham has won medals in body-building competitions.",
+                      "Pratham like to eat neew things, but he's vegetarian.",
+                      "Pratham's favourite fruit is apple.",
+                      "Please try again.",
+                      "Pratham believes in giving back to the society, hence he has been part of various social initiatives in college.",
+                      "Pratham has volunteered with Robinhood Army.",
+                      "Pratham has published a research paper on biofuel production from wheat straw in pre-final year of his bachelor's.",
+                      "Pratham has been a student mentor in his college.",
+                      "Pratham, along with a few other Alumni of IITR, has developed Alumni Mentorship Program for the benefit of current students of IIT.",
+                      "Pratham loves to travel.",
+                      "Pratham dreams of having a Vanity Van one day.",
+                      "Pratham dreams of setting up a Research and Development Lab in India.",
+                      "Pratham wants to stay in India in long term.",
+                      "For Pratham, job quality matters more than money.",
+                      "Pratham has refused offers from big companies like Amazon, Oracle....",
+                      "Pratham loves to reach technical blogs, not he doesn't want to go for higher studies.",
+                      "Prtham's friend call hin: SAMA.",
+                      "Pratham likes to play badminton.",
+                      "Pratham was part of team Athletics of IIT Roorkee.",
+                      "Pratham has run marathon since he was in first year at college.",
+                      "Pratham can write code in multiple languages.",
+                      "This website was developed by Pratham, just for fun.",
+                      "Pratham believes more in long term investment than short term swings.",
+                      "Pratham can talk about sports, finance, life, games, cars.",
+                      "Pratham is reachable at: go4pratham0897@gmail.com",
+                      "This website doesn't use AI, but may use in future."
+                    ];
 
 // cub commands based on results
 const debugCmds = ['h'];
@@ -50,6 +91,7 @@ const bioCmds = ['bio', 'about', 'biography', 'info', 'intro'];
 const contactCmds = ['contact', 'email'];
 const linkedInCmd = ['linkedin'];
 const specialCmds = ['sama', 'projects'];
+const randomCmds = ['random'];
 
 // Create a new element and push the chars one at a time and finally add a new line
 const cursor = document.createElement('span');
@@ -85,6 +127,22 @@ inputBlock.addEventListener("keyup", function(event) {
   }
 });
 
+
+// Main Call starts here;
+setBackgroundColor();
+const getStartedNode = getTypeableNodeContent('getStartedNodeId');
+
+// Set the version
+setAppVersion();
+
+/**
+ * Sets the appVersion in the terminal header
+ */
+function setAppVersion(){
+  var terminalHeadVersionChild = getLastTextChildNode(document.getElementById("terminalHead"));
+  var terminalHeaderString = " cat ./about.txt(v" + appVersionString + ")";
+  terminalHeadVersionChild.textContent = terminalHeaderString;
+}
 
 function highlightCodeInputField(){
   document.getElementById(codeInputField).focus();
@@ -123,8 +181,6 @@ function getTypeableNodeContent(nodeId){
  */
 function printResultCharByChar(node, charPrintWaitTime=140) {
 
-  console.log("Debug: starting printResultCharByChar");
-  console.log(node);
   cursor.className = 'cursor blink';
   node.parentNode.appendChild(cursor);
 
@@ -153,9 +209,6 @@ function printResultCharByChar(node, charPrintWaitTime=140) {
   console.log("Debug: ending printResultCharByChar");
 }
 
-// Main Call starts here;
-setBackgroundColor();
-const getStartedNode = getTypeableNodeContent('getStartedNodeId');
 
 function appendInputStrip(node, delay=1000){
   setTimeout(() => {
@@ -254,6 +307,9 @@ function getResultText(cmd){
   }
   else if (linkedInCmd.includes(cmd)){
     resultText = linkedInResult;
+  }
+  else if (randomCmds.includes(cmd)){
+    resultText = randomString[Math.floor(Math.random()*randomString.length)];
   }
   else {
     // default result, output of help
