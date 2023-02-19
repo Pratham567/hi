@@ -37,7 +37,7 @@ const iteratableResultCommand = ['bio', 'man', 'projects', 'home', 'sama'];
 // Special cases
 // projects, sama, whoami, cd
 
-const appVersionString = "1.1.6";
+const appVersionString = "1.1.7";
 const lastUpdated = "February 20th, 2023";
 // command outputs
 const helpResult = `The folowing commands are valid:
@@ -179,7 +179,7 @@ function getTypeableNodeContent(nodeId){
  * prints the content of the node char by char with blinking cursor
  * @param {node} node
  */
-function printResultCharByChar(node, charPrintWaitTime=140) {
+function printResultCharByChar(node, charPrintWaitTime=140, cmd) {
 
   cursor.className = 'cursor blink';
   node.parentNode.appendChild(cursor);
@@ -196,7 +196,7 @@ function printResultCharByChar(node, charPrintWaitTime=140) {
 
     if (itrIndex == node._saved.length) {
       cursor.className = 'cursor blink';
-      appendInputStrip(node);
+      appendInputStrip(node, 1000, cmd);
 
     } else {
       node.parentNode.appendChild(cursor);
@@ -206,24 +206,29 @@ function printResultCharByChar(node, charPrintWaitTime=140) {
 
   }, charPrintWaitTime);
 
-  console.log("Debug: ending printResultCharByChar");
+  // console.log("Debug: ending printResultCharByChar");
 }
 
 
-function appendInputStrip(node, delay=1000){
+function appendInputStrip(node, delay, cmd){
   setTimeout(() => {
     cursor.className = 'cursor blink';
     inputBlock.appendChild(cursor)
     node.parentNode.appendChild(inputCommandStrip);
     inputCommandStrip.style.display = "block";
-    inputBlock.value='help';
+    if(cmd.includes('random')){
+      inputBlock.value='random';
+    }
+    else{
+      inputBlock.value='help';
+    }
     highlightCodeInputField();
   }, delay);
 
 }
 
-function printResultAndAppendinputCommandStrip(node, printSpeed){
-  printResultCharByChar(node, printSpeed);
+function printResultAndAppendinputCommandStrip(node, printSpeed, cmd=''){
+  printResultCharByChar(node, printSpeed, cmd);
 }
 
 
@@ -349,24 +354,7 @@ function displayResultOfCommand(resultText, cmd){
   lastElemenrOfResultPara._saved = resultText.replace(/ {2,}/g, ' ').trim();
   lastElemenrOfResultPara.textContent = '';
   // print result & highlight. Also, append/focus the inputCommandStrip
-  printResultAndAppendinputCommandStrip(lastElemenrOfResultPara, 25);
-  
-  
-  // The following code has a bug, run command sama and then help
-  /* 
-  // check for the command, if it needs to be iterated or not.
-  if( cmd == 'help'){
-    // Append/focus the inputCommandStrip
-    appendInputStrip(lastElemenrOfResultPara, 200);
-  }
-  else{
-    // iterate and print char by char
-    lastElemenrOfResultPara._saved = resultText.replace(/ {2,}/g, ' ').trim();
-    lastElemenrOfResultPara.textContent = '';
-    // print result & highlight. Also, append/focus the inputCommandStrip
-    printResultAndAppendinputCommandStrip(lastElemenrOfResultPara, 50);
-  } 
-  */
+  printResultAndAppendinputCommandStrip(lastElemenrOfResultPara, 25, cmd);
 
 }
 
