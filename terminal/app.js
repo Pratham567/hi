@@ -22,13 +22,14 @@
 // In projects, we may want the user to give input either project name or serial number. For this, we may have to initialize some variable to identify that we are in a specific page (eg: projects, etc)
 // implement the function to take care of typos and other errors, if any.
 // Add a hyperlink to urls, and see how they can be done realtime.
+// Implement greet keywords in all the commands.
 
 
 // IMPORT the constants -> this doesn't work because of CORS issue, needs debugging
 // import { RESUME_URL, LINKEDIN_URL} from './appConstants.js';
 
 // CONSTANTS
-const appVersionString = "1.1.14";
+const appVersionString = "1.1.15";
 const lastUpdated = "February 20th, 2023";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
@@ -36,6 +37,7 @@ const GITHUB_URL = "https://github.com/Pratham567";
 
 // Commands, yet to be added
 // projects, clear, new, man, home, date, sudo (not allowed), technical skills, 
+// TODO: yet to implement this feature
 // Fixed output command
 const fixedCommand = ['help', 'linkedin', 'clear', 'resume'];
 // Typed command
@@ -43,7 +45,7 @@ const iteratableResultCommand = ['bio', 'man', 'projects', 'home', 'sama'];
 // Special cases
 // projects, sama, whoami, cd
 
-// cub commands based on results
+// club commands based on results
 const debugCmds = ['h'];
 const resumeCmds = ['resume', 'biodata', 'cv'];
 const bioCmds = ['bio', 'about', 'biography', 'info', 'intro'];
@@ -52,7 +54,8 @@ const linkedInCmd = ['linkedin'];
 const githubCmd = ['github'];
 const specialCmds = ['sama', 'projects'];
 const randomCmds = ['random'];
-const sudoCmd = ['sudo'];
+const sudoCmds = ['sudo', 'root', 'su'];
+const dateCmds = ['date', 'time'];
 
 // Prefixes
 const failedResultPrefixActionWords = ['Oops', 'Ahh', 'Oh no', "I'm sorry", 'Apologies', 'Whoops', 'Uh-oh', "That's bad", 'Yikes', 'Oh boy', 'Dang', 'Pardon'];
@@ -96,7 +99,14 @@ const failedResultPrefix = ["this command is not possible",
                             "the request is not allowed",
                             "the request is not permitted",
                             "that's not a valid request",
-                            ]
+                            ];
+
+const greetKeyword = ['Hello (English)', 'Bonjour (French)', 'Guten Tag (German)', 'Ciao (Italian)',
+                      'Hola (Spanish)', 'Salut (Romanian)', 'Hallo (Dutch)', 'Hej (Swedish)', 'Olá (Portuguese)',
+                      'Ni hao (Mandarin Chinese)', 'Konnichiwa (Japanese)', 'Annyeonghaseyo (Korean)',
+                      'Salaam (Arabic)', 'Shalom (Hebrew)', 'Namaste (Hindi)', 'Sawubona (Zulu)',
+                      'Jambo (Swahili)', 'Ayubowan (Sinhala)', 'Marhaba (Moroccan Arabic)', 'Saluton (Esperanto)'
+                    ];
 
 // command outputs
 const helpCmdPrefixList = ["Try one of the following commands",
@@ -151,8 +161,8 @@ const helpCmdPrefixList = ["Try one of the following commands",
                            "The following commands are the only ones that will work",
                            "These are the only commands that will be processed successfully by the system",
                           ];
-const allSupportedCommands = "help, resume, bio, linkedin, random, github, contact";
-const commandsComingSoon = "These commands will come soon: projects, sama, clear, new, man, home, date, sudo."
+const allSupportedCommands = "help, resume, bio, linkedin, random, github, contact, date";
+const commandsComingSoon = "These commands will come soon: projects, sama, clear, new, man, home, sudo."
 const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
                   He has experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
                   He has also built highly distributed pipelines for efficient testing and deployments. \
@@ -432,10 +442,13 @@ function getResultText(cmd){
     resultText = linkedInResult;
   }
   else if(githubCmd.includes(cmd)){
-    resulttext = githubResult;
+    resultText = githubResult;
   }
   else if (randomCmds.includes(cmd)){
     resultText = getRandomElement(randomString);
+  }
+  else if (dateCmds.includes(cmd)){
+    resultText = getRandomElement(greetKeyword) + "! The current Date-Time Stamp is: " + getPrettyDateTime();
   }
   else {
     // default result, output of help
@@ -456,6 +469,11 @@ function getRandomElement(listOfElement){
   return listOfElement[Math.floor(Math.random()*listOfElement.length)];
 }
 
+/**
+ * This function performs any special action required for the given command.
+ * This is executed as the command result is being displayed to the user.
+ * @param {String} cmd 
+ */
 function takeCmdRelatedAction(cmd){
 
   
@@ -511,6 +529,19 @@ function displayResultOfCommand(resultText, cmd){
 
 }
 
+/**
+ * Get the current Date and Time as a pretty printed {String}
+ * @returns {String}
+ */
+function getPrettyDateTime() {
+  const now = new Date();
+  const options = {
+    dateStyle: 'long',
+    timeStyle: 'medium',
+    hour12: true
+  };
+  return now.toLocaleString('en-US', options);
+}
 
 // const container = document.querySelector('.container');
 // const nodes = [];
