@@ -28,9 +28,9 @@
 // import { RESUME_URL, LINKEDIN_URL} from './appConstants.js';
 // import { appVersionString, lastUpdated, RESUME_URL, LINKEDIN_URL, fixedCommand, iteratableResultCommand } from './appConstants.js';
 // import { debugCmds, resumeCmds, bioCmds, contactCmds, linkedInCmd, specialCmds, randomCmds, sudoCmd} from './appConstants.js';
-// import { failedResultPrefixActionWords, failedResultPrefix, helpResult, bioResult, resumeResult, contactResult, linkedInResult, randomString} from './appConstants.js';
+// import { failedResultPrefixActionWords, failedResultPrefix, bioResult, resumeResult, contactResult, linkedInResult, randomString} from './appConstants.js';
 // CONSTANTS
-const appVersionString = "1.1.11";
+const appVersionString = "1.1.12";
 const lastUpdated = "February 20th, 2023";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
@@ -101,8 +101,59 @@ const failedResultPrefix = ["this command is not possible",
                             ]
 
 // command outputs
-const helpResult = `The following commands are valid:
-                    help, resume, bio, linkedin, random, github, contact`;
+const helpCmdPrefixList = ["Try one of the following commands",
+                           "Only the following commands are permitted",
+                           "You can only use either of the following commands",
+                           "You can only use one of the following commands",
+                           "Please use either of the following commands",
+                           "Only the following requests are allowed",
+                           "Only the following commands are allowed",
+                           "Request will only be processed for the following commands",
+                           "Request will only be processed for the following options",
+                           "Use either of the following options",
+                           "I can only responsed to the following commands",
+                           "I can only answer to the following commands",
+                           "Please choose one of the following commands",
+                           "You are only permitted to use one of the following commands",
+                           "You can use the following commands",
+                           "Only the following requests will be processed",
+                           "These are the only commands that are allowed",
+                           "You may only choose from the following options",
+                           "The following commands are the only ones that will be recognized",
+                           "The system will only respond to the following commands",
+                           "These are the only valid commands",
+                           "The following commands are the only ones that will work",
+                           "The following commands are supported",
+                           "The following options are available",
+                           "Please choose from the following authorized commands",
+                           "These are the only acceptable commands",
+                           "Please use one of the following valid options",
+                           "The system will only accept the following requests",
+                           "These are the only commands that will be recognized by the system",
+                           "Only the following inputs will be processed by the system",
+                           "The following commands are the only ones that will be executed",
+                           "The following commands are the only ones that are currently available",
+                           "The system can only respond to the following authorized commands",
+                           "Only the following actions are allowed",
+                           "The following actions are the only ones that will be allowed",
+                           "These are the only permissible commands for this operation",
+                           "These are the only commands that the system is configured to handle",
+                           "Please use one of the following supported commands",
+                           "The following actions are the only ones that will be processed",
+                           "The system recognizes only the following commands",
+                           "The system will only respond to the following authorized inputs",
+                           "Only the following operations are allowed in this context",
+                           "Please use one of the following available commands",
+                           "The following commands are the only ones that will result in successful processing",
+                           "These are the only commands that are currently supported",
+                           "Please choose from the following list of available commands",
+                           "Only the following inputs will result in successful processing",
+                           "These are the only commands that will be processed by the system",
+                           "Only the following requests will be processed",
+                           "The following commands are the only ones that will work",
+                           "These are the only commands that will be processed successfully by the system",
+                          ];
+const allSupportedCommands = "help, resume, bio, linkedin, random, github, contact"
 const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
                   He has experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
                   He has also built highly distributed pipelines for efficient testing and deployments. \
@@ -359,7 +410,7 @@ function getLastTextChildNode(parentNode){
 function getResultText(cmd){
   
   let resultText = '';
-  
+  var helpResultText = getRandomElement(helpCmdPrefixList) + ": " + allSupportedCommands + ".";
   if(specialCmds.includes(cmd)){
     resultText = 'This is a special command. Coming soon.....'
   }
@@ -367,8 +418,8 @@ function getResultText(cmd){
     resultText = "this is the text Content of the resultPara";
   }
   else if (cmd == 'help'){
-    resultText = helpResult;
-                    }
+    resultText = helpResultText
+  }
   else if (bioCmds.includes(cmd)){
     resultText = bioResult;
   }
@@ -385,16 +436,25 @@ function getResultText(cmd){
     resulttext = githubResult;
   }
   else if (randomCmds.includes(cmd)){
-    resultText = randomString[Math.floor(Math.random()*randomString.length)];
+    resultText = getRandomElement(randomString);
   }
   else {
     // default result, output of help
-    resultText = failedResultPrefixActionWords[Math.floor(Math.random()*failedResultPrefixActionWords.length)] + ", ";
-    resultText += failedResultPrefix[Math.floor(Math.random()*failedResultPrefix.length)];
-    resultText += `. ` + helpResult;
+    resultText = getRandomElement(failedResultPrefixActionWords) + ", ";
+    resultText += getRandomElement(failedResultPrefix);
+    resultText += `. ` + helpResultText;
   }
   return resultText;
 
+}
+
+/**
+ * Return a random element of the given list
+ * @param {object} listOfElement 
+ * @returns {object}
+ */
+function getRandomElement(listOfElement){
+  return listOfElement[Math.floor(Math.random()*listOfElement.length)];
 }
 
 function takeCmdRelatedAction(cmd){
