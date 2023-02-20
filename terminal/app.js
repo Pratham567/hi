@@ -22,7 +22,6 @@
 // In projects, we may want the user to give input either project name or serial number. For this, we may have to initialize some variable to identify that we are in a specific page (eg: projects, etc)
 // implement the function to take care of typos and other errors, if any.
 // Add a hyperlink to urls, and see how they can be done realtime.
-// Extend the commandStrip to the end of the terminal
 
 
 // IMPORT the constants -> this doesn't work because of CORS issue, needs debugging
@@ -38,7 +37,7 @@ const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
 const GITHUB_URL = "https://github.com/Pratham567";
 
 // Commands, yet to be added
-// projects, github, clear, new, man, home, date, sudo (not allowed), technical skills, 
+// projects, clear, new, man, home, date, sudo (not allowed), technical skills, 
 // Fixed output command
 const fixedCommand = ['help', 'linkedin', 'clear', 'resume'];
 // Typed command
@@ -416,32 +415,6 @@ function takeCmdRelatedAction(cmd){
       window.open(GITHUB_URL, "_blank");
     }, 4000);
   }
-
-  
-  
-  // if(specialCmds.includes(cmd)){
-  //   resultText = 'This is a special command. Coming soon.....'
-  // }
-  // else if (debugCmds.includes(cmd)){
-  //   resultText = "this is the text Content of the resultPara";
-  // }
-  // else if (cmd == 'help'){
-  //   resultText = helpResult;
-  //                   }
-  // else if (bioCmds.includes(cmd)){
-  //   resultText = bioResult;
-  // }
-  // else if (contactCmds.includes(cmd)){
-  //   resultText = contactResult;
-  // }
-  // else if (randomCmds.includes(cmd)){
-  //   resultText = randomString[Math.floor(Math.random()*randomString.length)];
-  // }
-  // else {
-  //   // default result, output of help
-  //   resultText = `Oops! unrecognised command ` + helpResult;
-  // }
-  // return resultText;
 
 }
 
