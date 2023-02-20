@@ -26,14 +26,15 @@
 // Implement terminal, bash, zsh, shell, fish, etc
 // Implement a secret command for curiosity -> maybe a way to inform users about the hidden commands.
 // Inform users that the terminal currently supports single word commands only
+// Implement command: hi
 
 
 // IMPORT the constants -> this doesn't work because of CORS issue, needs debugging
 // import { RESUME_URL, LINKEDIN_URL} from './appConstants.js';
 
 // CONSTANTS
-const appVersionString = "1.1.17";
-const lastUpdated = "February 20th, 2023 15:49";
+const appVersionString = "1.1.18";
+const lastUpdated = "February 20th, 2023 15:55";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
 const GITHUB_URL = "https://github.com/Pratham567";
@@ -225,53 +226,53 @@ const blockedCmdResultList = ["I cannot let you run that",
                               "I'm sorry, but that request cannot be fulfilled due to system constraints"
                             ];
 
-const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
-                      "Pratham has won the President's Gold Medal Award for his all round performance and his contributions to the department/college/society..",
-                      "Pratham has travelled to 3 different countries.",
-                      "Pratham has been very active in sports and have won multiple medls during college and holds records like maximum push-ups, maximum pull-ups in a go.",
-                      "Pratham has learnt development by himself.",
-                      "Pratham has a deep interest in cybersecurity, specially in reverse engineering.",
-                      "Pratham files taxes by himself.",
-                      "Pratham has won medals in body-building competitions.",
-                      "Pratham like to eat neew things, but he's vegetarian.",
-                      "Pratham's favourite fruit is apple.",
-                      "Please try again....",
-                      "Pratham believes in giving back to the society, hence he has been part of various social initiatives in college.",
-                      "Pratham has volunteered with Robinhood Army.",
-                      "Pratham has published a research paper on biofuel production from wheat straw in pre-final year of his bachelor's.",
-                      "Pratham has been a student mentor in his college.",
-                      "Pratham, along with a few other Alumni of IITR, has developed Alumni Mentorship Program for the benefit of current students of IIT.",
-                      "Pratham loves to travel.",
-                      "Pratham dreams of having a Vanity Van one day.",
-                      "Pratham dreams of setting up a Research and Development Lab in India.",
-                      "Pratham wants to stay in India in long term.",
-                      "For Pratham, job quality matters more than money.",
-                      "Pratham has refused offers from big companies like Amazon, Oracle....",
-                      "Pratham loves to reach technical blogs, not he doesn't want to go for higher studies.",
-                      "Prtham's friend call hin: SAMA.",
-                      "Pratham likes to play badminton.",
-                      "Pratham was part of team Athletics of IIT Roorkee.",
-                      "Pratham has run marathon since he was in first year at college.",
-                      "Pratham can write code in multiple languages.",
-                      "This website was developed by Pratham, just for fun.",
-                      "Pratham believes more in long term investment than short term swings.",
-                      "Pratham can talk about sports, finance, life, games, cars.",
-                      "Pratham is reachable at: go4pratham0897@gmail.com",
-                      "This website doesn't use AI, but may use in future.",
-                      "Pratham was awarded Student of the Year Award in his pre-final year of bachelors.",
-                      "Pratham has won Heritage Award for all-round excellence award back-to-back for 3 consecutive years.",
-                      "Pratham has won Special Contribution to the Department Award for consecutive 2 years.",
-                      "Pratham was an Undergraduate Teaching Assistant in his college, supporting freshers with a smooth transition to their college life.",
-                      "The first book Pratham purchased for his interest was: Computer Networks: A top down approach.",
-                      // "Out of interest, Pratham has read over 5 technical books and counting...",
-                      "Pratham prefer Microservices over Monoliths.",
-                      "Pratham prefers backend over frontend.",
-                      "Pratham can build CICD pipelines from scratch.",
-                      "Pratham can develop highly scalable, high throughput applications.",
-                      "Pratham can build asynchronous servers.",
-                      "Pratham can design and develop a production grade product, including microservices, libraries, testing pipelines, deployment, etc.",
-                      "Pratham is not active on Social Media."
-                    ];
+const randomResultList = ["Pratham has a bachelors degree in Chemical Engineering.",
+                          "Pratham has won the President's Gold Medal Award for his all round performance and his contributions to the department/college/society..",
+                          "Pratham has travelled to 3 different countries.",
+                          "Pratham has been very active in sports and have won multiple medls during college and holds records like maximum push-ups, maximum pull-ups in a go.",
+                          "Pratham has learnt development by himself.",
+                          "Pratham has a deep interest in cybersecurity, specially in reverse engineering.",
+                          "Pratham files taxes by himself.",
+                          "Pratham has won medals in body-building competitions.",
+                          "Pratham like to eat neew things, but he's vegetarian.",
+                          "Pratham's favourite fruit is apple.",
+                          "Please try again....",
+                          "Pratham believes in giving back to the society, hence he has been part of various social initiatives in college.",
+                          "Pratham has volunteered with Robinhood Army.",
+                          "Pratham has published a research paper on biofuel production from wheat straw in pre-final year of his bachelor's.",
+                          "Pratham has been a student mentor in his college.",
+                          "Pratham, along with a few other Alumni of IITR, has developed Alumni Mentorship Program for the benefit of current students of IIT.",
+                          "Pratham loves to travel.",
+                          "Pratham dreams of having a Vanity Van one day.",
+                          "Pratham dreams of setting up a Research and Development Lab in India.",
+                          "Pratham wants to stay in India in long term.",
+                          "For Pratham, job quality matters more than money.",
+                          "Pratham has refused offers from big companies like Amazon, Oracle....",
+                          "Pratham loves to reach technical blogs, not he doesn't want to go for higher studies.",
+                          "Prtham's friend call hin: SAMA.",
+                          "Pratham likes to play badminton.",
+                          "Pratham was part of team Athletics of IIT Roorkee.",
+                          "Pratham has run marathon since he was in first year at college.",
+                          "Pratham can write code in multiple languages.",
+                          "This website was developed by Pratham, just for fun.",
+                          "Pratham believes more in long term investment than short term swings.",
+                          "Pratham can talk about sports, finance, life, games, cars.",
+                          "Pratham is reachable at: go4pratham0897@gmail.com",
+                          "This website doesn't use AI, but may use in future.",
+                          "Pratham was awarded Student of the Year Award in his pre-final year of bachelors.",
+                          "Pratham has won Heritage Award for all-round excellence award back-to-back for 3 consecutive years.",
+                          "Pratham has won Special Contribution to the Department Award for consecutive 2 years.",
+                          "Pratham was an Undergraduate Teaching Assistant in his college, supporting freshers with a smooth transition to their college life.",
+                          "The first book Pratham purchased for his interest was: Computer Networks: A top down approach.",
+                          // "Out of interest, Pratham has read over 5 technical books and counting...",
+                          "Pratham prefer Microservices over Monoliths.",
+                          "Pratham prefers backend over frontend.",
+                          "Pratham can build CICD pipelines from scratch.",
+                          "Pratham can develop highly scalable, high throughput applications.",
+                          "Pratham can build asynchronous servers.",
+                          "Pratham can design and develop a production grade product, including microservices, libraries, testing pipelines, deployment, etc.",
+                          "Pratham is not active on Social Media."
+                        ];
 
 
 
@@ -504,7 +505,7 @@ function getResultText(cmd){
     resultText += githubResult;
   }
   else if (randomCmds.includes(cmd)){
-    resultText += "Here's a fact about Pratham. " + getRandomElement(randomString);
+    resultText += "Here's a fact about Pratham. " + getRandomElement(randomResultList);
   }
   else if (dateCmds.includes(cmd)){
     resultText += "The current Date-Time Stamp is: " + getPrettyDateTime();
