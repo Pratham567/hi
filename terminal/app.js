@@ -33,7 +33,7 @@
 
 // CONSTANTS
 const appVersionString = "1.1.17";
-const lastUpdated = "February 20th, 2023";
+const lastUpdated = "February 20th, 2023 15:49";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
 const GITHUB_URL = "https://github.com/Pratham567";
@@ -68,7 +68,13 @@ const dateCmds = ['date', 'time'];
 const failedResultPrefixActionWords = ['Oops', 'Ahh', 'Oh no', "I'm sorry",
                                        'Apologies', 'Whoops', 'Uh-oh',
                                        "That's bad", 'Yikes', 'Oh boy',
-                                       'Dang', 'Pardon'
+                                       'Dang', 'Pardon', 'Shoot',
+                                       "Geez", "My bad", "Bummer", "Oh dear",
+                                       "Drat", "Alas", "Aw man", "Rats",
+                                       "Well, that's not good", "Oh gosh",
+                                       "Sorry about that", "Fiddlesticks",
+                                       "Oopsie daisy", "Darn it", "Ouch",
+                                       "Mea culpa", "How unfortunate"
                                       ];
 
 const failedResultPrefix = ["this command is not possible",
@@ -292,7 +298,7 @@ initialSection.parentNode.appendChild(newSection);
 // Get the node which has the get started statement.
 const getStartedPara = document.getElementById('getStartedNode');
 
-// input Command Strip
+// input Command Strip, set the keyup event for ENTER key
 let inputCommandStrip = document.getElementById('inputCommandStrip')
 const codeInputField = 'codeInputField'
 let inputBlock = document.getElementById(codeInputField);
@@ -321,6 +327,9 @@ function setAppVersion(){
   terminalHeadVersionChild.textContent = terminalHeaderString;
 }
 
+/**
+ * Highlights the inputCommandStrip area and moves the focus of the pointer to it.
+ */
 function highlightCodeInputField(){
   document.getElementById(codeInputField).focus();
   document.getElementById(codeInputField).select();
@@ -502,9 +511,9 @@ function getResultText(cmd){
   }
   else if (blockedCmds.includes(cmd)){
     resultText = getRandomElement(failedResultPrefixActionWords) + "! " + getRandomElement(blockedCmdResultList) + ".";
-          }
-          else {
-  // default result, output of help
+  }
+  else {
+    // default result, output of help
     resultText = getRandomElement(failedResultPrefixActionWords) + ", ";
     resultText += getRandomElement(failedResultPrefix);
     resultText += `. ` + helpResultText;
@@ -529,7 +538,6 @@ function getRandomElement(listOfElement){
  */
 function takeCmdRelatedAction(cmd){
 
-  
   if (resumeCmds.includes(cmd)){
       setTimeout(function() {
         window.open(RESUME_URL, "_blank");
