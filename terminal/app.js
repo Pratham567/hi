@@ -28,7 +28,7 @@
 // import { RESUME_URL, LINKEDIN_URL} from './appConstants.js';
 
 // CONSTANTS
-const appVersionString = "1.1.13";
+const appVersionString = "1.1.14";
 const lastUpdated = "February 20th, 2023";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
@@ -152,6 +152,7 @@ const helpCmdPrefixList = ["Try one of the following commands",
                            "These are the only commands that will be processed successfully by the system",
                           ];
 const allSupportedCommands = "help, resume, bio, linkedin, random, github, contact";
+const commandsComingSoon = "These commands will come soon: projects, sama, clear, new, man, home, date, sudo."
 const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
                   He has experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
                   He has also built highly distributed pipelines for efficient testing and deployments. \
@@ -408,7 +409,7 @@ function getLastTextChildNode(parentNode){
 function getResultText(cmd){
   
   let resultText = '';
-  var helpResultText = getRandomElement(helpCmdPrefixList) + ": " + allSupportedCommands + ".";
+  var helpResultText = getRandomElement(helpCmdPrefixList) + ": " + allSupportedCommands + ". " + commandsComingSoon;
   if(specialCmds.includes(cmd)){
     resultText = 'This is a special command. Coming soon.....'
   }
