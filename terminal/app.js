@@ -25,6 +25,11 @@
 // Extend the commandStrip to the end of the terminal
 
 
+// IMPORT the constants -> this doesn't work because of CORS issue, needs debugging
+// import { RESUME_URL, LINKEDIN_URL} from './appConstants.js';
+// import { appVersionString, lastUpdated, RESUME_URL, LINKEDIN_URL, fixedCommand, iteratableResultCommand } from './appConstants.js';
+// import { debugCmds, resumeCmds, bioCmds, contactCmds, linkedInCmd, specialCmds, randomCmds, sudoCmd} from './appConstants.js';
+// import { failedResultPrefixActionWords, failedResultPrefix, helpResult, bioResult, resumeResult, contactResult, linkedInResult, randomString} from './appConstants.js';
 // CONSTANTS
 const appVersionString = "1.1.10";
 const lastUpdated = "February 20th, 2023";
@@ -151,6 +156,7 @@ const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
                       "Pratham can design and develop a production grade product, including microservices, libraries, testing pipelines, deployment, etc.",
                       "Pratham is not active on Social Media."
                     ];
+
 
 // Create a new element and push the chars one at a time and finally add a new line
 const cursor = document.createElement('span');
