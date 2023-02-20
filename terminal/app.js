@@ -23,20 +23,23 @@
 // implement the function to take care of typos and other errors, if any.
 // Add a hyperlink to urls, and see how they can be done realtime.
 // Implement the javascript as module, so that we can extract out the functions into libraries
+// Implement terminal, bash, zsh, shell, fish, etc
+// Implement a secret command for curiosity -> maybe a way to inform users about the hidden commands.
+// Inform users that the terminal currently supports single word commands only
 
 
 // IMPORT the constants -> this doesn't work because of CORS issue, needs debugging
 // import { RESUME_URL, LINKEDIN_URL} from './appConstants.js';
 
 // CONSTANTS
-const appVersionString = "1.1.16";
-const lastUpdated = "February 20th, 2023";
+const appVersionString = "1.1.17";
+const lastUpdated = "February 20th, 2023 15:49";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
 const GITHUB_URL = "https://github.com/Pratham567";
 
 // Commands, yet to be added
-// projects, clear, new, man, home, date, sudo (not allowed), technical skills, 
+// projects, clear, new, man, home, date, sudo (not allowed), technical skills, secret
 // TODO: yet to implement this feature
 // Fixed output command
 const fixedCommand = ['help', 'linkedin', 'clear', 'resume'];
@@ -45,20 +48,35 @@ const iteratableResultCommand = ['bio', 'man', 'projects', 'home', 'sama'];
 // Special cases
 // projects, sama, whoami, cd
 
+const allSupportedCommands = "help, resume, bio, linkedin, random, github, contact, date. But don't try to gain access by running commands like sudo";
+const commandsComingSoon = "These commands will come soon: projects, sama, clear, new, man, home"
+
 // club commands based on results
+const specialCmds = ['sama', 'projects'];
 const debugCmds = ['h'];
 const resumeCmds = ['resume', 'biodata', 'cv'];
 const bioCmds = ['bio', 'about', 'biography', 'info', 'intro'];
 const contactCmds = ['contact', 'email'];
 const linkedInCmd = ['linkedin'];
 const githubCmd = ['github'];
-const specialCmds = ['sama', 'projects'];
 const randomCmds = ['random'];
-const sudoCmds = ['sudo', 'root', 'su'];
+const blockedCmds = ['sudo', 'root', 'su', 'admin', 'superuser', 'shutdown', 'reboot', 'restart', 
+                     'patch', 'update', 'daemon', 'systemctl', 'edit', 'modify'];
 const dateCmds = ['date', 'time'];
 
 // Prefixes
-const failedResultPrefixActionWords = ['Oops', 'Ahh', 'Oh no', "I'm sorry", 'Apologies', 'Whoops', 'Uh-oh', "That's bad", 'Yikes', 'Oh boy', 'Dang', 'Pardon'];
+const failedResultPrefixActionWords = ['Oops', 'Ahh', 'Oh no', "I'm sorry",
+                                       'Apologies', 'Whoops', 'Uh-oh',
+                                       "That's bad", 'Yikes', 'Oh boy',
+                                       'Dang', 'Pardon', 'Shoot',
+                                       "Geez", "My bad", "Bummer", "Oh dear",
+                                       "Drat", "Alas", "Aw man", "Rats",
+                                       "Well, that's not good", "Oh gosh",
+                                       "Sorry about that", "Fiddlesticks",
+                                       "Oopsie daisy", "Darn it", "Ouch",
+                                       "Mea culpa", "How unfortunate"
+                                      ];
+
 const failedResultPrefix = ["this command is not possible",
                             "this is invalid",
                             "this seems incorrect",
@@ -161,16 +179,52 @@ const helpCmdPrefixList = ["Try one of the following commands",
                            "The following commands are the only ones that will work",
                            "These are the only commands that will be processed successfully by the system",
                           ];
-const allSupportedCommands = "help, resume, bio, linkedin, random, github, contact, date";
-const commandsComingSoon = "These commands will come soon: projects, sama, clear, new, man, home, sudo."
+
 const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
                   He has experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
                   He has also built highly distributed pipelines for efficient testing and deployments. \
                   He is fascinated by Cloud and Data. Cyber Security takes up most of his free time. If you are into security, you'll vibe :p";
+
 const resumeResult = "Thanks for the query. Get my resume here: " + RESUME_URL + ". Hold on, opening in a new tab. Please check if the pop-ups are not blocked";
+
 const contactResult = "Pratham is reachable at: go4pratham0897@gmail.com. You maybe be looking for the following commands: linkedin, github, about";
+
 const linkedInResult = "Connect with Pratham on LinkedIn here: " + LINKEDIN_URL + ". Hold on, opening in a new tab. Please check if the pop-ups are not blocked";
+
 const githubResult = "Most of the Pratham's contribution goes to github enterprise, hence they may not be visible in his public profile. Here is Pratham's github url: " + GITHUB_URL + ". Hold on, opening in a new tab. Please check if the pop-ups are not blocked";
+
+const blockedCmdResultList = ["I cannot let you run that",
+                              "There's no way I can let you run that",
+                              "Nice try, but I can't let that happen",
+                              "That's not something I can allow",
+                              "I'm sorry, but I can't let you do that",
+                              "I'm afraid I can't authorize that action",
+                              "I can't give you permission to do that",
+                              "Unfortunately, that operation is not permitted",
+                              "Access denied. That action cannot be executed",
+                              "That request cannot be authorized at this time",
+                              "Sorry, that action is restricted",
+                              "I'm sorry, but I cannot grant you the necessary access to do that",
+                              "That operation is outside the scope of your authority",
+                              "I'm sorry, but that action goes beyond the limits of what I can permit",
+                              "I'm sorry, but that action is not permitted for you",
+                              "I'm afraid I cannot comply with that request",
+                              "I'm sorry, but that request cannot be processed",
+                              "I'm sorry, but I don't have the authority to permit that",
+                              "I'm afraid I cannot execute that",
+                              "That request is not possible given the current system configuration",
+                              "I'm sorry, but that feature is not permitted at this time",
+                              "Unfortunately, that action is not allowed by this system",
+                              "I'm afraid I cannot grant you the necessary permissions to do that",
+                              "That request goes beyond the scope of current user",
+                              "I'm sorry, but that action is prohibited",
+                              "Access to that function is restricted for security reasons",
+                              "I'm afraid that action is beyond the scope of current user",
+                              "I'm sorry, but that action cannot be performed for technical reasons",
+                              "I'm afraid I cannot comply with that request due to system restrictions",
+                              "I'm sorry, but that request cannot be fulfilled due to system constraints"
+                            ];
+
 const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
                       "Pratham has won the President's Gold Medal Award for his all round performance and his contributions to the department/college/society..",
                       "Pratham has travelled to 3 different countries.",
@@ -220,6 +274,8 @@ const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
                     ];
 
 
+
+// // Setting up the context
 // Create a new element and push the chars one at a time and finally add a new line
 const cursor = document.createElement('span');
 cursor.innerHTML = '_';
@@ -242,7 +298,7 @@ initialSection.parentNode.appendChild(newSection);
 // Get the node which has the get started statement.
 const getStartedPara = document.getElementById('getStartedNode');
 
-// input Command Strip
+// input Command Strip, set the keyup event for ENTER key
 let inputCommandStrip = document.getElementById('inputCommandStrip')
 const codeInputField = 'codeInputField'
 let inputBlock = document.getElementById(codeInputField);
@@ -255,7 +311,7 @@ inputBlock.addEventListener("keyup", function(event) {
 });
 
 
-// Main Call starts here;
+// // Main Call starts here;
 setBackgroundColor();
 const getStartedNode = getTypeableNodeContent('getStartedNodeId');
 
@@ -271,6 +327,9 @@ function setAppVersion(){
   terminalHeadVersionChild.textContent = terminalHeaderString;
 }
 
+/**
+ * Highlights the inputCommandStrip area and moves the focus of the pointer to it.
+ */
 function highlightCodeInputField(){
   document.getElementById(codeInputField).focus();
   document.getElementById(codeInputField).select();
@@ -450,6 +509,9 @@ function getResultText(cmd){
   else if (dateCmds.includes(cmd)){
     resultText += "The current Date-Time Stamp is: " + getPrettyDateTime();
   }
+  else if (blockedCmds.includes(cmd)){
+    resultText = getRandomElement(failedResultPrefixActionWords) + "! " + getRandomElement(blockedCmdResultList) + ".";
+  }
   else {
     // default result, output of help
     resultText = getRandomElement(failedResultPrefixActionWords) + ", ";
@@ -476,7 +538,6 @@ function getRandomElement(listOfElement){
  */
 function takeCmdRelatedAction(cmd){
 
-  
   if (resumeCmds.includes(cmd)){
       setTimeout(function() {
         window.open(RESUME_URL, "_blank");
