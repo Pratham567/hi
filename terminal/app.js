@@ -35,6 +35,7 @@ const appVersionString = "1.1.10";
 const lastUpdated = "February 20th, 2023";
 const RESUME_URL = "https://bit.ly/ResumePratham22";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
+const GITHUB_URL = "https://github.com/Pratham567";
 
 // Commands, yet to be added
 // projects, github, clear, new, man, home, date, sudo (not allowed), technical skills, 
@@ -51,6 +52,7 @@ const resumeCmds = ['resume', 'biodata', 'cv'];
 const bioCmds = ['bio', 'about', 'biography', 'info', 'intro'];
 const contactCmds = ['contact', 'email'];
 const linkedInCmd = ['linkedin'];
+const githubCmd = ['github'];
 const specialCmds = ['sama', 'projects'];
 const randomCmds = ['random'];
 const sudoCmd = ['sudo'];
@@ -101,14 +103,15 @@ const failedResultPrefix = ["this command is not possible",
 
 // command outputs
 const helpResult = `The following commands are valid:
-                    help, resume, bio, linkedin, random`;
+                    help, resume, bio, linkedin, random, github, contact`;
 const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
                   He has experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
                   He has also built highly distributed pipelines for efficient testing and deployments. \
                   He is fascinated by Cloud and Data. Cyber Security takes up most of his free time. If you are into security, you'll vibe :p";
 const resumeResult = "Thanks for the query. Get my resume here: " + RESUME_URL + ". Hold on, opening in a new tab. Please check if the pop-ups are not blocked";
-const contactResult = "Pratham is reachable at: go4pratham0897@gmail.com. You maybe be looking for the following commands: linkedin";
+const contactResult = "Pratham is reachable at: go4pratham0897@gmail.com. You maybe be looking for the following commands: linkedin, github, about";
 const linkedInResult = "Connect with Pratham on LinkedIn here: " + LINKEDIN_URL + ". Hold on, opening in a new tab. Please check if the pop-ups are not blocked";
+const githubResult = "Most of the Pratham's contribution goes to github enterprise, hence they may not be visible in his public profile. Here is Pratham's github url: " + GITHUB_URL + ". Hold on, opening in a new tab. Please check if the pop-ups are not blocked";
 const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
                       "Pratham has won the President's Gold Medal Award for his all round performance and his contributions to the department/college/society..",
                       "Pratham has travelled to 3 different countries.",
@@ -147,7 +150,7 @@ const randomString = ["Pratham has a bachelors degree in Chemical Engineering.",
                       "Pratham has won Special Contribution to the Department Award for consecutive 2 years.",
                       "Pratham was an Undergraduate Teaching Assistant in his college, supporting freshers with a smooth transition to their college life.",
                       "The first book Pratham purchased for his interest was: Computer Networks: A top down approach.",
-                      "Out of interest, Pratham has read over 5 technical books and counting...",
+                      // "Out of interest, Pratham has read over 5 technical books and counting...",
                       "Pratham prefer Microservices over Monoliths.",
                       "Pratham prefers backend over frontend.",
                       "Pratham can build CICD pipelines from scratch.",
@@ -379,6 +382,9 @@ function getResultText(cmd){
   else if (linkedInCmd.includes(cmd)){
     resultText = linkedInResult;
   }
+  else if(githubCmd.includes(cmd)){
+    resulttext = githubResult;
+  }
   else if (randomCmds.includes(cmd)){
     resultText = randomString[Math.floor(Math.random()*randomString.length)];
   }
@@ -403,6 +409,11 @@ function takeCmdRelatedAction(cmd){
   else if (linkedInCmd.includes(cmd)){
     setTimeout(function() {
       window.open(LINKEDIN_URL, "_blank");
+    }, 4000);
+  }
+  else if (githubCmd.includes(cmd)){
+    setTimeout(function() {
+      window.open(GITHUB_URL, "_blank");
     }, 4000);
   }
 
