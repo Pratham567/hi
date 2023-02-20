@@ -26,11 +26,9 @@
 
 // IMPORT the constants -> this doesn't work because of CORS issue, needs debugging
 // import { RESUME_URL, LINKEDIN_URL} from './appConstants.js';
-// import { appVersionString, lastUpdated, RESUME_URL, LINKEDIN_URL, fixedCommand, iteratableResultCommand } from './appConstants.js';
-// import { debugCmds, resumeCmds, bioCmds, contactCmds, linkedInCmd, specialCmds, randomCmds, sudoCmd} from './appConstants.js';
-// import { failedResultPrefixActionWords, failedResultPrefix, bioResult, resumeResult, contactResult, linkedInResult, randomString} from './appConstants.js';
+
 // CONSTANTS
-const appVersionString = "1.1.12";
+const appVersionString = "1.1.13";
 const lastUpdated = "February 20th, 2023";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
@@ -153,7 +151,7 @@ const helpCmdPrefixList = ["Try one of the following commands",
                            "The following commands are the only ones that will work",
                            "These are the only commands that will be processed successfully by the system",
                           ];
-const allSupportedCommands = "help, resume, bio, linkedin, random, github, contact"
+const allSupportedCommands = "help, resume, bio, linkedin, random, github, contact";
 const bioResult = "Pratham is a software developer currently working at Cisco 5G team. He builds highly scalable distributed network applications using some of the best industry practices when it comes to managing and monitoring those applications. \
                   He has experience in building common libraries so that the developers can focus more on business logic, avoid code duplication and develop faster. \
                   He has also built highly distributed pipelines for efficient testing and deployments. \
