@@ -30,7 +30,7 @@
 // import { debugCmds, resumeCmds, bioCmds, contactCmds, linkedInCmd, specialCmds, randomCmds, sudoCmd} from './appConstants.js';
 // import { failedResultPrefixActionWords, failedResultPrefix, bioResult, resumeResult, contactResult, linkedInResult, randomString} from './appConstants.js';
 // CONSTANTS
-const appVersionString = "1.1.11";
+const appVersionString = "1.1.12";
 const lastUpdated = "February 20th, 2023";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
