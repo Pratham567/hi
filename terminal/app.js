@@ -22,14 +22,14 @@
 // In projects, we may want the user to give input either project name or serial number. For this, we may have to initialize some variable to identify that we are in a specific page (eg: projects, etc)
 // implement the function to take care of typos and other errors, if any.
 // Add a hyperlink to urls, and see how they can be done realtime.
-// Implement greet keywords in all the commands.
+// Implement the javascript as module, so that we can extract out the functions into libraries
 
 
 // IMPORT the constants -> this doesn't work because of CORS issue, needs debugging
 // import { RESUME_URL, LINKEDIN_URL} from './appConstants.js';
 
 // CONSTANTS
-const appVersionString = "1.1.15";
+const appVersionString = "1.1.16";
 const lastUpdated = "February 20th, 2023";
 const RESUME_URL = "https://bit.ly/ResumePratham";
 const LINKEDIN_URL = "https://linkedin.com/in/pratham567";
@@ -418,37 +418,37 @@ function getLastTextChildNode(parentNode){
 
 function getResultText(cmd){
   
-  let resultText = '';
+  let resultText =  getRandomElement(greetKeyword) + "! ";
   var helpResultText = getRandomElement(helpCmdPrefixList) + ": " + allSupportedCommands + ". " + commandsComingSoon;
   if(specialCmds.includes(cmd)){
-    resultText = 'This is a special command. Coming soon.....'
+    resultText += 'This is a special command. Coming soon.....';
   }
   else if (debugCmds.includes(cmd)){
-    resultText = "this is the text Content of the resultPara";
+    resultText = "You have entered the debug section. Please type help and proceed ahead....";
   }
   else if (cmd == 'help'){
-    resultText = helpResultText
+    resultText += helpResultText;
   }
   else if (bioCmds.includes(cmd)){
-    resultText = bioResult;
+    resultText += "Here's a quick info about Pratham. " + bioResult;
   }
   else if (contactCmds.includes(cmd)){
-    resultText = contactResult;
+    resultText += contactResult;
   }
   else if (resumeCmds.includes(cmd)){
-    resultText = resumeResult;
+    resultText += resumeResult;
   }
   else if (linkedInCmd.includes(cmd)){
-    resultText = linkedInResult;
+    resultText += linkedInResult;
   }
   else if(githubCmd.includes(cmd)){
-    resultText = githubResult;
+    resultText += githubResult;
   }
   else if (randomCmds.includes(cmd)){
-    resultText = getRandomElement(randomString);
+    resultText += "Here's a fact about Pratham. " + getRandomElement(randomString);
   }
   else if (dateCmds.includes(cmd)){
-    resultText = getRandomElement(greetKeyword) + "! The current Date-Time Stamp is: " + getPrettyDateTime();
+    resultText += "The current Date-Time Stamp is: " + getPrettyDateTime();
   }
   else {
     // default result, output of help
